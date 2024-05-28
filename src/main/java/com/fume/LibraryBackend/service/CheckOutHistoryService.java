@@ -70,4 +70,12 @@ public class CheckOutHistoryService {
   public List<CheckOutHistory> listByBookId(Long bookId) {
     return repo.findByBook_Id(bookId);
   }
+
+  public void deleteAllByUserId(Long id) {
+      repo.deleteAllByUser_Id(id);
+  }
+
+  public void deleteAllByBookId(Long id) {
+    repo.deleteAllByBook_Id(id);
+  }
 }

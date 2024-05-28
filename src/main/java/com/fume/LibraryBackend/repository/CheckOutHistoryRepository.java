@@ -10,6 +10,8 @@ public interface CheckOutHistoryRepository extends JpaRepository<CheckOutHistory
 
   List<CheckOutHistory> findByUser_Id(Long id);
   List<CheckOutHistory> findByBook_Id(Long id);
+  void deleteAllByUser_Id(Long id);
+  void deleteAllByBook_Id(Long id);
 
 
 }

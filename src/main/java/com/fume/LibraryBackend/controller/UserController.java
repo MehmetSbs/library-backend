@@ -20,8 +20,12 @@ public class UserController {
   private final UserService userService;
 
   @GetMapping("/")
-  public User find(Long id){
+  public User find(@RequestParam Long id){
     return userService.find(id);
+  }
+  @GetMapping("/pay")
+  public User pay(@RequestParam Long id){
+    return userService.pay(id);
   }
 
   @GetMapping("/list")
