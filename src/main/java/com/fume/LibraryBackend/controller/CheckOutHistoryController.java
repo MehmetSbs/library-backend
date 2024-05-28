@@ -1,7 +1,7 @@
 package com.fume.LibraryBackend.controller;
 
 import com.fume.LibraryBackend.entity.CheckOutHistory;
-import com.fume.LibraryBackend.filter.CheckOutHistoryFilter;
+import com.fume.LibraryBackend.filter.CheckOutFilter;
 import com.fume.LibraryBackend.service.CheckOutHistoryService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +40,18 @@ public class CheckOutHistoryController {
   }
 
   @PostMapping("/filter")
-  public List<CheckOutHistory> filter(@RequestBody CheckOutHistoryFilter filter){
+  public List<CheckOutHistory> filter(@RequestBody CheckOutFilter filter){
     return checkOutHistoryService.filter(filter);
+  }
+
+  @GetMapping("/user")
+  public List<CheckOutHistory> listByUserId(@RequestParam Long userId){
+    return checkOutHistoryService.listByUserId(userId);
+  }
+
+  @GetMapping("/book")
+  public List<CheckOutHistory> listByBookId(@RequestParam Long bookId){
+    return checkOutHistoryService.listByBookId(bookId);
   }
 
   @GetMapping("/deliver")

@@ -17,18 +17,18 @@ public class BookSpecification {
 
       List<Predicate> predicates = new ArrayList<>();
 
-      if (bookFilter.getName() != null && !bookFilter.getName().isEmpty()) {
-        predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")),
-            "%" + bookFilter.getName().toLowerCase() + "%"));
+      if (bookFilter.getSearch() != null && !bookFilter.getSearch().isEmpty()) {
+        predicates.add(criteriaBuilder.or(
+            criteriaBuilder.like(criteriaBuilder.lower(root.get("name")),
+                "%" + bookFilter.getSearch().toLowerCase() + "%"),
+            criteriaBuilder.like(criteriaBuilder.lower(root.get("author")),
+                "%" + bookFilter.getSearch().toLowerCase() + "%"),
+            criteriaBuilder.like(criteriaBuilder.lower(root.get("publisher")),
+                "%" + bookFilter.getSearch().toLowerCase() + "%")
+        ));
+
       }
-      if (bookFilter.getAuthor() != null && !bookFilter.getAuthor().isEmpty()) {
-        predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("author")),
-            "%" + bookFilter.getAuthor().toLowerCase() + "%"));
-      }
-      if (bookFilter.getPublisher() != null && !bookFilter.getPublisher().isEmpty()) {
-        predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("publisher")),
-            "%" + bookFilter.getPublisher().toLowerCase() + "%"));
-      }if (bookFilter.getIsBorrowed() != null) {
+      if (bookFilter.getIsBorrowed() != null) {
         predicates.add(criteriaBuilder.equal(root.get("isBorrowed"), bookFilter.getIsBorrowed()));
       }
 

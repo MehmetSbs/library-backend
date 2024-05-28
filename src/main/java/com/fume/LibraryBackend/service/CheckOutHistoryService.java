@@ -1,9 +1,8 @@
 package com.fume.LibraryBackend.service;
 
 
-import com.fume.LibraryBackend.entity.Book;
 import com.fume.LibraryBackend.entity.CheckOutHistory;
-import com.fume.LibraryBackend.filter.CheckOutHistoryFilter;
+import com.fume.LibraryBackend.filter.CheckOutFilter;
 import com.fume.LibraryBackend.repository.CheckOutHistoryRepository;
 import com.fume.LibraryBackend.spec.CheckOutHistorySpecification;
 import java.sql.Date;
@@ -19,15 +18,15 @@ public class CheckOutHistoryService {
   private final CheckOutHistoryRepository repo;
   private final BookService bookService;
 
-  public CheckOutHistory find(Long id){
-    return  repo.findById(id).get();
+  public CheckOutHistory find(Long id) {
+    return repo.findById(id).get();
   }
 
-  public List<CheckOutHistory> list(){
+  public List<CheckOutHistory> list() {
     return repo.findAll();
   }
 
-  public CheckOutHistory save(CheckOutHistory checkOut){
+  public CheckOutHistory save(CheckOutHistory checkOut) {
 
     checkOut.setStartDate(Date.valueOf(LocalDate.now()));
     checkOut.setDueDate(Date.valueOf(LocalDate.now().plusWeeks(3)));
@@ -37,17 +36,17 @@ public class CheckOutHistoryService {
     return repo.save(checkOut);
   }
 
-  public Boolean delete(Long id){
+  public Boolean delete(Long id) {
     try {
       repo.deleteById(id);
       return true;
-    }catch (Exception e){
+    } catch (Exception e) {
       System.out.println(e);
       return false;
     }
   }
 
-  public List<CheckOutHistory> filter(CheckOutHistoryFilter filter){
+  public List<CheckOutHistory> filter(CheckOutFilter filter) {
     return repo.findAll(CheckOutHistorySpecification.filterByAll(filter));
   }
 
@@ -60,7 +59,15 @@ public class CheckOutHistoryService {
 
     bookService.setIsBorrowed(checkOutHistory.getBook().getId(), false);
 
-
     return repo.save(checkOutHistory);
+  }
+
+  public List<CheckOutHistory> listByUserId(Long userId) {
+
+    return repo.findByUser_Id(userId);
+  }
+
+  public List<CheckOutHistory> listByBookId(Long bookId) {
+    return repo.findByBook_Id(bookId);
   }
 }

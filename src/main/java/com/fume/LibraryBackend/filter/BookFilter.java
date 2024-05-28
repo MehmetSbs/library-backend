@@ -6,8 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BookFilter {
-  private String name;
-  private String author;
-  private String publisher;
+  private String search;
   private Boolean isBorrowed;
 }

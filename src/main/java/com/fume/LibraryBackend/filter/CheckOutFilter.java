@@ -6,16 +6,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CheckOutHistoryFilter {
+public class CheckOutFilter {
 
   private Boolean isDelivered;
   private Date startDate;
   private Date dueDate;
   private Date deliveryDate;
 
-  private String bookName;
-  private String bookAuthor;
-  private String bookPublisher;
-
-  private String userNameSurname;
+  private String search;
 }
